@@ -12,6 +12,6 @@ before_install:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push atgreen/s2i-EL-cloud-image
+      docker push atgreen/s2i-el-cloud-image
     fi
 
