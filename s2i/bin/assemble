@@ -23,4 +23,8 @@ echo "---> Installing application source..."
 cp -Rf /tmp/src/. ./
 
 echo "---> Building application from source..."
-# TODO: Add build steps for your application, eg npm install, bundle install, pip install, etc.
+
+pwd
+ls -l
+./step-1-get-qcow-image
+
