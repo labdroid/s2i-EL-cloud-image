@@ -9,8 +9,8 @@ LABEL io.k8s.description="Platform for building RHEL cloud images" \
       io.k8s.display-name="builder 0.0.1" \
       io.openshift.tags="builder,0.0.1"
 
-RUN yum install epel-release -y && yum install jq -y \
-    && yum -y install libguestfs-tools make \
+RUN yum install epel-release -y \
+    && yum -y install jq libguestfs-tools qemu-img \
     && yum clean all
 
 RUN wget https://dl.minio.io/client/mc/release/linux-amd64/mc \
