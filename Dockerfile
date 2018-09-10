@@ -24,6 +24,8 @@ RUN cd /opt \
 RUN wget https://dl.minio.io/client/mc/release/linux-amd64/mc \
     && chmod +x mc && mv mc /usr/bin
 
+RUN gem install hammer_cli_katello
+
 COPY ./tools/ /opt/app-root/
 
 COPY ./s2i/bin/ /usr/libexec/s2i
