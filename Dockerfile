@@ -22,8 +22,9 @@ RUN yum install epel-release -y \
     && wget https://dl.minio.io/client/mc/release/linux-amd64/mc \
     && chmod +x mc && mv mc /usr/bin
 
-RUN yum install -y centos-release-scl && yum install -y rh-ruby24
-RUN scl enable rh-ruby24 gem install hammer_cli_katello
+RUN yum install -y centos-release-scl && yum install -y rh-ruby24 rh-ruby24-ruby-devel
+RUN source /opt/rh/rh-ruby24/enable && gem install hammer_cli_katello
+RUN echo "source /opt/rh/rh-ruby24/enable\n" > /etc/profile.d/rh-ruby24.sh
 
 COPY ./tools/ /opt/app-root/
 
