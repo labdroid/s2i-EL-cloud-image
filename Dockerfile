@@ -10,11 +10,19 @@ LABEL io.k8s.description="Platform for building RHEL cloud images" \
       io.openshift.tags="builder,0.0.1"
 
 RUN yum install epel-release -y \
-    && yum -y install jq libguestfs-tools qemu-img openssl curl \
+    && rpm --import https://packages.microsoft.com/keys/microsoft.asc \
+    && echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo \
+    && yum -y install azure-cli jq libguestfs-tools qemu-img openssl curl \
     && yum clean all
 
+RUN cd /opt \
+    && wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-215.0.0-linux-x86_64.tar.gz \
+    && tar xvf google-cloud-sdk-*.gz && rm google-cloud-sdk-*.gz \
+    && echo "source /opt/google-cloud-sdk/path.bash.inc" > /etc/profile.d/google-cloud-sdk.sh \
+    && pip install awscli
+
 RUN wget https://dl.minio.io/client/mc/release/linux-amd64/mc \
-    && chmod +x mc
+    && chmod +x mc && mv mc /usr/bin
 
 COPY ./tools/ /opt/app-root/
 
