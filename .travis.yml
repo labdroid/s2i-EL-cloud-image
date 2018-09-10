@@ -7,7 +7,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t atgreen/s2i-el-cloud-image:$TRAVIS_BUILD_NUMBER .
+  - docker build -t atgreen/s2i-el-cloud-image:$COMMIT .
 
 script:
   -
@@ -15,5 +15,7 @@ script:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push atgreen/s2i-el-cloud-image:$TRAVIS_BUILD_NUMBER;
+      docker tag atgreen/s2i-el-cloud-image:$COMMIT atgreen/s2i-el-cloud-image:latest
+      docker tag atgreen/s2i-el-cloud-image:$COMMIT atgreen/s2i-el-cloud-image:travis-$TRAVIS_BUILD_NUMBER
+      docker push atgreen/s2i-el-cloud-image
     fi
