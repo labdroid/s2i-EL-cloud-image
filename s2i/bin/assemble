@@ -21,12 +21,36 @@ if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
   mv /tmp/artifacts/. ./
 fi
 
-echo "---> Installing application source..."
+echo "---> Installing cloud image build source..."
 cp -Rf /tmp/src/. ./
 
-echo "---> Building application from source..."
+echo "---> Building cloud image..."
 
-pwd
-ls -l
-./step-1-get-qcow-image
+if ! [ -f _cleanup ]; then
+    echo -----------------------------------------------------------------------------
+    echo Error: source missing _cleanup script
+    exit 1;
+fi   
+
+for STAGE in $(ls [0-9]* | sort -n); do
+    echo -----------------------------------------------------------------------------
+    echo Running $STAGE
+    source $STAGE
+    ec=$?
+    if [ ${ec} -ne 0 ]; then
+	echo -----------------------------------------------------------------------------
+	echo $STAGE failed with exit code ${ec}.  Running _cleanup.
+	source _cleanup;
+	exit 1;
+    fi
+done;
+
+echo -----------------------------------------------------------------------------
+echo Done.  Running _cleanup
+source _cleanup
+
+echo -----------------------------------------------------------------------------
+echo Done.
+
+
 
