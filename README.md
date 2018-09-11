@@ -1,5 +1,34 @@
+# s2i-cloud-image
 
-# Creating a basic S2I builder image  
+s2i-cloud-image is an OpenShift S2I builder container for building VM
+images suitable for deployment in cloud environments, like Azure, AWS,
+and GCE.
+
+# What?
+
+OpenShift's S2I and BuildConfig features are more commonly used to
+automate the creation of container images from source code.  Benefits
+include full build automation in a way that is fully reproducibile and
+auditable.
+
+s2i-cloud-image takes advantage of these same technologies, but
+produces no container image.  We leverage a build container
+(s2i-cloud-image), fully loaded with all of the tools required to
+build and deploy VM images to create VHD, AMIs, or whatever else is
+required by the provider.  The definition of VM image is maintained
+like source code in a git repo, and OpenShift is configured to build
+and record VM images triggered by git webhooks.
+
+s2i-cloud-image is flexible.  It provides a basic framework and examples of
+ * how to build and harden images,
+ * how to leverage Vault to manage in-image secrets and service credentials,
+ * how to audit resulting images with OpenSCAP,
+ * and how to record all relevant metadata about the images, including digital signatures, audit results, and more in a git repo forever tied to the resulting VM image file.
+
+# Why?
+
+Because... [finish this].
+
 
 ## Getting started  
 
