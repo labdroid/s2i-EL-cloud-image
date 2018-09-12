@@ -24,6 +24,8 @@ RUN yum install epel-release centos-release-scl -y \
     && source /opt/rh/rh-ruby24/enable && gem install hammer_cli_katello \
     && echo "source /opt/rh/rh-ruby24/enable" > /etc/profile.d/rh-ruby24.sh
 
+RUN echo 192.168.1.2 minio-labdroid.apps.home.labdroid.net >> /etc/hosts
+
 COPY ./tools/ /opt/app-root/
 
 COPY ./s2i/bin/ /usr/libexec/s2i
