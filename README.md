@@ -1,8 +1,8 @@
 # s2i-cloud-image
 
-s2i-cloud-image is an OpenShift S2I builder container for building VM
-images suitable for deployment in cloud environments, like Azure, AWS,
-and GCE.
+s2i-cloud-image is an OpenShift S2I build container for building Linux
+VM images suitable for deployment in cloud environments like Azure,
+AWS, and GCE.
 
 # What?
 
